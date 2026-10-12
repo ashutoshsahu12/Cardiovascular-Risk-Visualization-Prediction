@@ -1,0 +1,33 @@
+# backend/generate_dummy_models.py
+import os
+import joblib
+import numpy as np
+import pandas as pd
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.preprocessing import StandardScaler
+
+os.makedirs("models", exist_ok=True)
+
+# Generate mock dataset matching input schema
+X = pd.DataFrame({
+    'age': np.random.uniform(30, 80, 100),
+    'bp': np.random.uniform(100, 180, 100),
+    'pulse_rate': np.random.uniform(60, 100, 100),
+    'cholesterol': np.random.uniform(150, 300, 100),
+    'st_elevation': np.random.choice([0, 1], 100),
+    't_inversion': np.random.choice([0, 1], 100),
+    'lvh': np.random.choice([0, 1], 100),
+    'rwma': np.random.choice([0, 1], 100)
+})
+
+scaler = StandardScaler().fit(X)
+X_scaled = scaler.transform(X)
+
+# Train mock models for CAD, LAD, LCX, and RCA
+for name in ['cad', 'lad', 'lcx', 'rca']:
+    y = np.random.choice([0, 1], 100)
+    clf = RandomForestClassifier().fit(X_scaled, y)
+    joblib.dump(clf, f"models/{name}_model.joblib")
+
+joblib.dump(scaler, "models/scaler.joblib")
+print("✅ Dummy model artifacts generated successfully inside /models folder!")
