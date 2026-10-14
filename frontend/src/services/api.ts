@@ -173,11 +173,29 @@ export async function fetchHealthStatus(): Promise<boolean> {
 }
 
 export async function postPrediction(data: AssessmentFormData): Promise<PredictionResponse> {
+  const payload = {
+    ...data,
+    age: data.age === '' ? 0 : Number(data.age),
+    height: data.height === '' ? 0 : Number(data.height),
+    weight: data.weight === '' ? 0 : Number(data.weight),
+    systolicBP: data.systolicBP === '' ? 0 : Number(data.systolicBP),
+    diastolicBP: data.diastolicBP === '' ? 0 : Number(data.diastolicBP),
+    restingHeartRate: data.restingHeartRate === '' ? 0 : Number(data.restingHeartRate),
+    fastingBloodSugar: data.fastingBloodSugar === '' ? 0 : Number(data.fastingBloodSugar),
+    totalCholesterol: data.totalCholesterol === '' ? 0 : Number(data.totalCholesterol),
+    ldlCholesterol: data.ldlCholesterol === '' ? 0 : Number(data.ldlCholesterol),
+    hdlCholesterol: data.hdlCholesterol === '' ? 0 : Number(data.hdlCholesterol),
+    triglycerides: data.triglycerides === '' || data.triglycerides === undefined ? 150 : Number(data.triglycerides),
+    creatinine: data.creatinine === '' || data.creatinine === undefined ? undefined : Number(data.creatinine),
+    esr: data.esr === '' || data.esr === undefined ? undefined : Number(data.esr),
+    ejectionFraction: data.ejectionFraction === '' ? 0 : Number(data.ejectionFraction)
+  };
+
   try {
     const res = await fetch(`${BASE_URL}/api/predict`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify(payload),
       signal: AbortSignal.timeout(4000)
     });
 
@@ -190,22 +208,30 @@ export async function postPrediction(data: AssessmentFormData): Promise<Predicti
     console.info('Backend unreachable or offline. Using calibrated client-side inference engine.');
   }
 
-  return computeClientFallback(data);
+  return computeClientFallback(payload);
 }
 
 function computeClientFallback(data: AssessmentFormData): PredictionResponse {
+  const age = Number(data.age) || 45;
+  const systolicBP = Number(data.systolicBP) || 120;
+  const diastolicBP = Number(data.diastolicBP) || 80;
+  const totalCholesterol = Number(data.totalCholesterol) || 190;
+  const ldlCholesterol = Number(data.ldlCholesterol) || 100;
+  const hdlCholesterol = Number(data.hdlCholesterol) || 50;
+  const ejectionFraction = Number(data.ejectionFraction) || 55;
+
   // Calibrated client-side inference
   let z = -2.2;
-  z += (data.age - 45) * 0.045;
+  z += (age - 45) * 0.045;
   if (data.sex === 'Male') z += 0.40;
-  z += (data.systolicBP - 120) * 0.025 + (data.diastolicBP - 80) * 0.015;
-  z += (data.totalCholesterol - 190) * 0.010 + (data.ldlCholesterol - 100) * 0.015 - (data.hdlCholesterol - 50) * 0.020;
+  z += (systolicBP - 120) * 0.025 + (diastolicBP - 80) * 0.015;
+  z += (totalCholesterol - 190) * 0.010 + (ldlCholesterol - 100) * 0.015 - (hdlCholesterol - 50) * 0.020;
   if (data.smokingStatus === 'Current smoker') z += 0.65;
   if (data.smokingStatus === 'Former smoker') z += 0.20;
   if (data.diabetes === 'Yes') z += 0.55;
   if (data.familyHistory === 'Yes') z += 0.45;
   if (data.ecgFinding !== 'Normal') z += 0.50;
-  if (data.ejectionFraction < 50) z += (50 - data.ejectionFraction) * 0.03;
+  if (ejectionFraction < 50) z += (50 - ejectionFraction) * 0.03;
 
   const sigmoid = (v: number) => 1.0 / (1.0 + Math.exp(-v));
   const cadProb = Math.max(0.08, Math.min(0.95, Math.round(sigmoid(z) * 100) / 100));
@@ -222,31 +248,31 @@ function computeClientFallback(data: AssessmentFormData): PredictionResponse {
   const overallTier = cadProb >= 0.60 ? 'Higher risk' : cadProb >= 0.35 ? 'Moderate risk' : 'Lower risk';
 
   const shap: ShapContribution[] = [];
-  if (data.ldlCholesterol > 120) {
+  if (ldlCholesterol > 120) {
     shap.push({
       feature: 'ldlCholesterol',
       displayName: 'LDL Cholesterol',
-      value: Math.round(((data.ldlCholesterol - 100) / 300) * 100) / 100,
+      value: Math.round(((ldlCholesterol - 100) / 300) * 100) / 100,
       direction: 'positive',
       category: 'lab',
-      description: `Elevated LDL (${data.ldlCholesterol} mg/dL) accelerates atheroma formation.`
+      description: `Elevated LDL (${ldlCholesterol} mg/dL) accelerates atheroma formation.`
     });
   }
-  if (data.systolicBP > 125) {
+  if (systolicBP > 125) {
     shap.push({
       feature: 'systolicBP',
       displayName: 'Systolic Blood Pressure',
-      value: Math.round(((data.systolicBP - 120) / 150) * 100) / 100,
+      value: Math.round(((systolicBP - 120) / 150) * 100) / 100,
       direction: 'positive',
       category: 'clinical',
-      description: `Systolic BP of ${data.systolicBP} mmHg elevates hemodynamic endothelial stress.`
+      description: `Systolic BP of ${systolicBP} mmHg elevates hemodynamic endothelial stress.`
     });
   }
-  if (data.age > 45) {
+  if (age > 45) {
     shap.push({
       feature: 'age',
-      displayName: `Age Factor (${data.age} yrs)`,
-      value: Math.round(((data.age - 45) * 0.006) * 100) / 100,
+      displayName: `Age Factor (${age} yrs)`,
+      value: Math.round(((age - 45) * 0.006) * 100) / 100,
       direction: 'positive',
       category: 'clinical',
       description: 'Age increases cumulative risk.'
@@ -262,10 +288,10 @@ function computeClientFallback(data: AssessmentFormData): PredictionResponse {
       description: 'Never-smoker status preserves vascular endothelial integrity.'
     });
   }
-  if (data.hdlCholesterol >= 45) {
+  if (hdlCholesterol >= 45) {
     shap.push({
       feature: 'hdlCholesterol',
-      displayName: `HDL (${data.hdlCholesterol} mg/dL)`,
+      displayName: `HDL (${hdlCholesterol} mg/dL)`,
       value: -0.06,
       direction: 'negative',
       category: 'lab',
@@ -323,8 +349,8 @@ function computeClientFallback(data: AssessmentFormData): PredictionResponse {
     },
     shapContributions: shap,
     clinicalInsights: {
-      bloodPressureStatus: data.systolicBP >= 135 ? 'Blood pressure is slightly elevated' : 'Blood pressure is normal',
-      cholesterolStatus: data.ldlCholesterol >= 130 ? 'Cholesterol levels require attention' : 'Lipid levels are optimal',
+      bloodPressureStatus: systolicBP >= 135 ? 'Blood pressure is slightly elevated' : 'Blood pressure is normal',
+      cholesterolStatus: ldlCholesterol >= 130 ? 'Cholesterol levels require attention' : 'Lipid levels are optimal',
       cadRiskStatus: `${overallTier} predicted`,
       recommendations: [
         'Review blood pressure trends with ambulatory monitoring.',

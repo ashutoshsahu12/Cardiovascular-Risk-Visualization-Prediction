@@ -84,15 +84,15 @@ export function buildHealthSummary(
     return null;
   }
 
-  const age = formData?.age ?? 45;
-  const sbp = formData?.systolicBP ?? 145;
-  const dbp = formData?.diastolicBP ?? 92;
-  const tc = formData?.totalCholesterol ?? 240;
-  const ldl = formData?.ldlCholesterol ?? 160;
-  const hdl = formData?.hdlCholesterol ?? 42;
-  const hr = formData?.restingHeartRate ?? 82;
-  const fbs = formData?.fastingBloodSugar ?? 105;
-  const ef = formData?.ejectionFraction ?? 55;
+  const age = Number(formData?.age) || 45;
+  const sbp = Number(formData?.systolicBP) || 145;
+  const dbp = Number(formData?.diastolicBP) || 92;
+  const tc = Number(formData?.totalCholesterol) || 240;
+  const ldl = Number(formData?.ldlCholesterol) || 160;
+  const hdl = Number(formData?.hdlCholesterol) || 42;
+  const hr = Number(formData?.restingHeartRate) || 82;
+  const fbs = Number(formData?.fastingBloodSugar) || 105;
+  const ef = Number(formData?.ejectionFraction) || 55;
   const ecg = formData?.ecgFinding ?? 'ST Depression';
 
   const cadPct = prediction?.overallCadPercentage ?? 68;

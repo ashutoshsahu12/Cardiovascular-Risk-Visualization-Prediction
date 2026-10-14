@@ -592,7 +592,10 @@ export const HeartSceneOverlay: React.FC<HeartSceneOverlayProps> = ({
 
               <button
                 type="button"
-                onClick={() => onVesselSelect(null)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  onVesselSelect(null);
+                }}
                 style={{
                   background: 'transparent',
                   border: 'none',

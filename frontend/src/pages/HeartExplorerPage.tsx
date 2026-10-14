@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ArrowUpRight,
   ArrowDownRight,
@@ -22,13 +22,15 @@ interface HeartExplorerPageProps {
 export const HeartExplorerPage: React.FC<HeartExplorerPageProps> = ({ onNavigate }) => {
   const { selectedVessel, setSelectedVessel, viewMode } = useHeartStore();
   const { currentPrediction } = usePredictionStore();
+  const [isVesselPopupVisible, setIsVesselPopupVisible] = useState(true);
 
   const predictionsPayload = React.useMemo(
     () => mapPredictionTo3DPayload(currentPrediction),
     [currentPrediction]
   );
 
-  const currentVesselData = currentPrediction.vessels[selectedVessel];
+  const currentVessel: VesselId = (selectedVessel && currentPrediction?.vessels?.[selectedVessel]) ? selectedVessel : 'LAD';
+  const currentVesselData = currentPrediction?.vessels?.[currentVessel] || currentPrediction?.vessels?.LAD;
 
   const vesselTabs: { id: VesselId; label: string }[] = [
     { id: 'LAD', label: 'LAD' },
@@ -53,9 +55,14 @@ export const HeartExplorerPage: React.FC<HeartExplorerPageProps> = ({ onNavigate
         <div className="lg:col-span-8 h-[540px] flex flex-col">
           <HeartScene
             predictions={predictionsPayload}
-            selectedVessel={selectedVessel}
+            selectedVessel={isVesselPopupVisible ? currentVessel : null}
             onVesselSelect={(vesselId) => {
-              if (vesselId) setSelectedVessel(vesselId);
+              if (vesselId) {
+                setSelectedVessel(vesselId);
+                setIsVesselPopupVisible(true);
+              } else {
+                setIsVesselPopupVisible(false);
+              }
             }}
             className="w-full h-full"
           />
@@ -74,12 +81,15 @@ export const HeartExplorerPage: React.FC<HeartExplorerPageProps> = ({ onNavigate
             {/* Vessel Tabs */}
             <div className="flex items-center gap-2 my-4 p-1 bg-slate-100 rounded-xl">
               {vesselTabs.map((tab) => {
-                const isActive = selectedVessel === tab.id;
+                const isActive = currentVessel === tab.id;
                 return (
                   <button
                     key={tab.id}
                     type="button"
-                    onClick={() => setSelectedVessel(tab.id)}
+                    onClick={() => {
+                      setSelectedVessel(tab.id);
+                      setIsVesselPopupVisible(true);
+                    }}
                     className={`flex-1 py-1.5 text-xs font-bold rounded-lg transition-all ${
                       isActive
                         ? 'bg-white text-slate-900 shadow-xs'
