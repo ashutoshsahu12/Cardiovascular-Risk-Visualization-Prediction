@@ -4,19 +4,24 @@ import numpy as np
 from typing import List
 from app.schemas import FeatureContribution
 
-def compute_shap_explanations(model, input_df: pd.DataFrame) -> List[FeatureContribution]:
+def compute_raw_shap_values(model, input_df: pd.DataFrame) -> np.ndarray:
     """
-    Computes SHAP feature attributions for a single patient inference request.
+    Computes raw TreeSHAP values for single sample inference (CAD target class).
     """
-    # Use TreeExplainer for tree models (e.g. XGBoost/RandomForest) or KernelExplainer
     explainer = shap.Explainer(model)
     shap_values = explainer(input_df)
 
-    # Convert values for single prediction sample
     vals = shap_values.values[0]
-    if len(vals.shape) > 1:  # Handle multi-class / probability output
+    if len(vals.shape) > 1:  # Handle binary classifier output dimension
         vals = vals[:, 1]
+    return vals
 
+def compute_shap_explanations(model, input_df: pd.DataFrame) -> List[FeatureContribution]:
+    """
+    Computes legacy SHAP feature attributions for a single patient inference request.
+    Preserved for backward compatibility.
+    """
+    vals = compute_raw_shap_values(model, input_df)
     feature_names = input_df.columns
     contributions = []
 

@@ -30,7 +30,9 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
     updateField,
     errors,
     resetForm,
-    loadSampleData
+    loadSampleData,
+    validateAll,
+    getSubmissionData
   } = useAssessmentStore();
 
   const { runPrediction, isLoading } = usePredictionStore();
@@ -44,7 +46,11 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
   ];
 
   const handleSubmit = async () => {
-    const success = await runPrediction(formData);
+    if (!validateAll()) {
+      return;
+    }
+    const data = getSubmissionData();
+    const success = await runPrediction(data);
     if (success) {
       onNavigate('results');
     }
@@ -136,8 +142,8 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                   <div className="relative">
                     <input
                       type="number"
-                      value={formData.age}
-                      onChange={(e) => updateField('age', Number(e.target.value))}
+                      value={formData.age !== undefined && formData.age !== null ? formData.age : ''}
+                      onChange={(e) => updateField('age', e.target.value === '' ? '' : Number(e.target.value))}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                     />
                     <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
@@ -171,37 +177,39 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 {/* Height */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Height
+                    Height *
                   </label>
                   <div className="relative">
                     <input
                       type="number"
-                      value={formData.height}
-                      onChange={(e) => updateField('height', Number(e.target.value))}
+                      value={formData.height !== undefined && formData.height !== null ? formData.height : ''}
+                      onChange={(e) => updateField('height', e.target.value === '' ? '' : Number(e.target.value))}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                     />
                     <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                       cm
                     </span>
                   </div>
+                  {errors.height && <p className="text-[11px] text-rose-500 mt-1">{errors.height}</p>}
                 </div>
 
                 {/* Weight */}
                 <div>
                   <label className="block text-xs font-semibold text-slate-700 mb-1.5">
-                    Weight
+                    Weight *
                   </label>
                   <div className="relative">
                     <input
                       type="number"
-                      value={formData.weight}
-                      onChange={(e) => updateField('weight', Number(e.target.value))}
+                      value={formData.weight !== undefined && formData.weight !== null ? formData.weight : ''}
+                      onChange={(e) => updateField('weight', e.target.value === '' ? '' : Number(e.target.value))}
                       className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                     />
                     <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                       kg
                     </span>
                   </div>
+                  {errors.weight && <p className="text-[11px] text-rose-500 mt-1">{errors.weight}</p>}
                 </div>
               </div>
             </div>
@@ -287,8 +295,8 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.systolicBP}
-                    onChange={(e) => updateField('systolicBP', Number(e.target.value))}
+                    value={formData.systolicBP !== undefined && formData.systolicBP !== null ? formData.systolicBP : ''}
+                    onChange={(e) => updateField('systolicBP', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
@@ -307,8 +315,8 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.diastolicBP}
-                    onChange={(e) => updateField('diastolicBP', Number(e.target.value))}
+                    value={formData.diastolicBP !== undefined && formData.diastolicBP !== null ? formData.diastolicBP : ''}
+                    onChange={(e) => updateField('diastolicBP', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
@@ -327,8 +335,8 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.restingHeartRate}
-                    onChange={(e) => updateField('restingHeartRate', Number(e.target.value))}
+                    value={formData.restingHeartRate !== undefined && formData.restingHeartRate !== null ? formData.restingHeartRate : ''}
+                    onChange={(e) => updateField('restingHeartRate', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
@@ -371,14 +379,15 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.totalCholesterol}
-                    onChange={(e) => updateField('totalCholesterol', Number(e.target.value))}
+                    value={formData.totalCholesterol !== undefined && formData.totalCholesterol !== null ? formData.totalCholesterol : ''}
+                    onChange={(e) => updateField('totalCholesterol', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                     mg/dL
                   </span>
                 </div>
+                {errors.totalCholesterol && <p className="text-[11px] text-rose-500 mt-1">{errors.totalCholesterol}</p>}
                 <p className="text-[11px] text-slate-400 mt-1">Desirable: &lt; 200 mg/dL</p>
               </div>
 
@@ -390,14 +399,15 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.ldlCholesterol}
-                    onChange={(e) => updateField('ldlCholesterol', Number(e.target.value))}
+                    value={formData.ldlCholesterol !== undefined && formData.ldlCholesterol !== null ? formData.ldlCholesterol : ''}
+                    onChange={(e) => updateField('ldlCholesterol', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                     mg/dL
                   </span>
                 </div>
+                {errors.ldlCholesterol && <p className="text-[11px] text-rose-500 mt-1">{errors.ldlCholesterol}</p>}
                 <p className="text-[11px] text-slate-400 mt-1">Optimal: &lt; 100 mg/dL</p>
               </div>
 
@@ -409,14 +419,15 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.hdlCholesterol}
-                    onChange={(e) => updateField('hdlCholesterol', Number(e.target.value))}
+                    value={formData.hdlCholesterol !== undefined && formData.hdlCholesterol !== null ? formData.hdlCholesterol : ''}
+                    onChange={(e) => updateField('hdlCholesterol', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                     mg/dL
                   </span>
                 </div>
+                {errors.hdlCholesterol && <p className="text-[11px] text-rose-500 mt-1">{errors.hdlCholesterol}</p>}
                 <p className="text-[11px] text-slate-400 mt-1">Desirable: &gt; 40–50 mg/dL</p>
               </div>
 
@@ -428,14 +439,15 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.triglycerides}
-                    onChange={(e) => updateField('triglycerides', Number(e.target.value))}
+                    value={formData.triglycerides !== undefined && formData.triglycerides !== null ? formData.triglycerides : ''}
+                    onChange={(e) => updateField('triglycerides', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                     mg/dL
                   </span>
                 </div>
+                {errors.triglycerides && <p className="text-[11px] text-rose-500 mt-1">{errors.triglycerides}</p>}
                 <p className="text-[11px] text-slate-400 mt-1">Normal: &lt; 150 mg/dL</p>
               </div>
 
@@ -447,14 +459,15 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.fastingBloodSugar}
-                    onChange={(e) => updateField('fastingBloodSugar', Number(e.target.value))}
+                    value={formData.fastingBloodSugar !== undefined && formData.fastingBloodSugar !== null ? formData.fastingBloodSugar : ''}
+                    onChange={(e) => updateField('fastingBloodSugar', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                     mg/dL
                   </span>
                 </div>
+                {errors.fastingBloodSugar && <p className="text-[11px] text-rose-500 mt-1">{errors.fastingBloodSugar}</p>}
                 <p className="text-[11px] text-slate-400 mt-1">Normal: 70–99 mg/dL</p>
               </div>
 
@@ -467,14 +480,15 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                   <input
                     type="number"
                     step="0.1"
-                    value={formData.creatinine || 1.0}
-                    onChange={(e) => updateField('creatinine', Number(e.target.value))}
+                    value={formData.creatinine !== undefined && formData.creatinine !== null ? formData.creatinine : ''}
+                    onChange={(e) => updateField('creatinine', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
                     mg/dL
                   </span>
                 </div>
+                {errors.creatinine && <p className="text-[11px] text-rose-500 mt-1">{errors.creatinine}</p>}
                 <p className="text-[11px] text-slate-400 mt-1">Normal: 0.7–1.3 mg/dL</p>
               </div>
             </div>
@@ -526,8 +540,8 @@ export const AssessmentPage: React.FC<AssessmentPageProps> = ({ onNavigate }) =>
                 <div className="relative">
                   <input
                     type="number"
-                    value={formData.ejectionFraction}
-                    onChange={(e) => updateField('ejectionFraction', Number(e.target.value))}
+                    value={formData.ejectionFraction !== undefined && formData.ejectionFraction !== null ? formData.ejectionFraction : ''}
+                    onChange={(e) => updateField('ejectionFraction', e.target.value === '' ? '' : Number(e.target.value))}
                     className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm font-semibold text-slate-800 focus:bg-white focus:outline-none focus:ring-2 focus:ring-teal-500/30 focus:border-teal-500 transition-all"
                   />
                   <span className="absolute right-3.5 top-1/2 -translate-y-1/2 text-xs text-slate-400">
