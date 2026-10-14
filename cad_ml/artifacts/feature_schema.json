@@ -1,0 +1,763 @@
+{
+  "inputs": [
+    {
+      "id": "age",
+      "column": "Age",
+      "label": "Age",
+      "group": "Demographics",
+      "kind": "numeric",
+      "unit": "years",
+      "required": false,
+      "hard_min": 18,
+      "hard_max": 110,
+      "observed_min": 30.0,
+      "observed_max": 86.0,
+      "default": 58.0
+    },
+    {
+      "id": "sex",
+      "column": "Sex",
+      "label": "Sex",
+      "group": "Demographics",
+      "kind": "categorical",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Male",
+        "Female"
+      ],
+      "default": "Male"
+    },
+    {
+      "id": "weight",
+      "column": "Weight",
+      "label": "Weight",
+      "group": "Demographics",
+      "kind": "numeric",
+      "unit": "kg",
+      "required": false,
+      "hard_min": 30,
+      "hard_max": 250,
+      "observed_min": 48.0,
+      "observed_max": 120.0,
+      "default": 74.0
+    },
+    {
+      "id": "length",
+      "column": "Length",
+      "label": "Height",
+      "group": "Demographics",
+      "kind": "numeric",
+      "unit": "cm",
+      "required": false,
+      "hard_min": 100,
+      "hard_max": 230,
+      "observed_min": 140.0,
+      "observed_max": 188.0,
+      "default": 165.0
+    },
+    {
+      "id": "dm",
+      "column": "DM",
+      "label": "Diabetes mellitus",
+      "group": "History & risk factors",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "htn",
+      "column": "HTN",
+      "label": "Hypertension",
+      "group": "History & risk factors",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 1.0
+    },
+    {
+      "id": "current_smoker",
+      "column": "Current Smoker",
+      "label": "Current smoker",
+      "group": "History & risk factors",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "ex_smoker",
+      "column": "EX-Smoker",
+      "label": "Ex-smoker",
+      "group": "History & risk factors",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "fh",
+      "column": "FH",
+      "label": "Family history of CAD",
+      "group": "History & risk factors",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "crf",
+      "column": "CRF",
+      "label": "Chronic renal failure",
+      "group": "History & risk factors",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "cva",
+      "column": "CVA",
+      "label": "Prior stroke (CVA)",
+      "group": "History & risk factors",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "airway_disease",
+      "column": "Airway disease",
+      "label": "Airway disease",
+      "group": "History & risk factors",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "thyroid_disease",
+      "column": "Thyroid Disease",
+      "label": "Thyroid disease",
+      "group": "History & risk factors",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "chf",
+      "column": "CHF",
+      "label": "Congestive heart failure",
+      "group": "History & risk factors",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "dlp",
+      "column": "DLP",
+      "label": "Dyslipidaemia",
+      "group": "History & risk factors",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "bp",
+      "column": "BP",
+      "label": "Systolic blood pressure",
+      "group": "Vitals & examination",
+      "kind": "numeric",
+      "unit": "mmHg",
+      "required": false,
+      "hard_min": 50,
+      "hard_max": 260,
+      "observed_min": 90.0,
+      "observed_max": 190.0,
+      "default": 130.0
+    },
+    {
+      "id": "pr",
+      "column": "PR",
+      "label": "Pulse rate",
+      "group": "Vitals & examination",
+      "kind": "numeric",
+      "unit": "bpm",
+      "required": false,
+      "hard_min": 30,
+      "hard_max": 200,
+      "observed_min": 50.0,
+      "observed_max": 110.0,
+      "default": 70.0
+    },
+    {
+      "id": "edema",
+      "column": "Edema",
+      "label": "Edema",
+      "group": "Vitals & examination",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "weak_peripheral_pulse",
+      "column": "Weak Peripheral Pulse",
+      "label": "Weak peripheral pulse",
+      "group": "Vitals & examination",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "lung_rales",
+      "column": "Lung rales",
+      "label": "Lung rales",
+      "group": "Vitals & examination",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "systolic_murmur",
+      "column": "Systolic Murmur",
+      "label": "Systolic murmur",
+      "group": "Vitals & examination",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "diastolic_murmur",
+      "column": "Diastolic Murmur",
+      "label": "Diastolic murmur",
+      "group": "Vitals & examination",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "typical_chest_pain",
+      "column": "Typical Chest Pain",
+      "label": "Typical chest pain",
+      "group": "Symptoms",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 1.0
+    },
+    {
+      "id": "dyspnea",
+      "column": "Dyspnea",
+      "label": "Dyspnea",
+      "group": "Symptoms",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "function_class",
+      "column": "Function Class",
+      "label": "Functional class (NYHA 0-3)",
+      "group": "Symptoms",
+      "kind": "ordinal",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 3,
+      "observed_min": 0.0,
+      "observed_max": 3.0,
+      "default": 0.0
+    },
+    {
+      "id": "atypical",
+      "column": "Atypical",
+      "label": "Atypical chest pain",
+      "group": "Symptoms",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "nonanginal",
+      "column": "Nonanginal",
+      "label": "Non-anginal chest pain",
+      "group": "Symptoms",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "lowth_ang",
+      "column": "LowTH Ang",
+      "label": "Low-threshold angina",
+      "group": "Symptoms",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "q_wave",
+      "column": "Q Wave",
+      "label": "Q wave",
+      "group": "ECG",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "st_elevation",
+      "column": "St Elevation",
+      "label": "ST elevation",
+      "group": "ECG",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "st_depression",
+      "column": "St Depression",
+      "label": "ST depression",
+      "group": "ECG",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "tinversion",
+      "column": "Tinversion",
+      "label": "T-wave inversion",
+      "group": "ECG",
+      "kind": "binary",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 1,
+      "observed_min": 0.0,
+      "observed_max": 1.0,
+      "default": 0.0
+    },
+    {
+      "id": "lvh",
+      "column": "LVH",
+      "label": "Left ventricular hypertrophy",
+      "group": "ECG",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "poor_r_progression",
+      "column": "Poor R Progression",
+      "label": "Poor R-wave progression",
+      "group": "ECG",
+      "kind": "yn",
+      "unit": null,
+      "required": false,
+      "options": [
+        "Y",
+        "N"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "bbb",
+      "column": "BBB",
+      "label": "Bundle branch block",
+      "group": "ECG",
+      "kind": "categorical",
+      "unit": null,
+      "required": false,
+      "options": [
+        "N",
+        "LBBB",
+        "RBBB"
+      ],
+      "default": "N"
+    },
+    {
+      "id": "fbs",
+      "column": "FBS",
+      "label": "Fasting blood sugar",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mg/dL",
+      "required": false,
+      "hard_min": 30,
+      "hard_max": 800,
+      "observed_min": 62.0,
+      "observed_max": 400.0,
+      "default": 98.0
+    },
+    {
+      "id": "cr",
+      "column": "CR",
+      "label": "Creatinine",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mg/dL",
+      "required": false,
+      "hard_min": 0.1,
+      "hard_max": 15,
+      "observed_min": 0.5,
+      "observed_max": 2.2,
+      "default": 1.0
+    },
+    {
+      "id": "tg",
+      "column": "TG",
+      "label": "Triglycerides",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mg/dL",
+      "required": false,
+      "hard_min": 10,
+      "hard_max": 2500,
+      "observed_min": 37.0,
+      "observed_max": 1050.0,
+      "default": 122.0
+    },
+    {
+      "id": "ldl",
+      "column": "LDL",
+      "label": "LDL cholesterol",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mg/dL",
+      "required": false,
+      "hard_min": 10,
+      "hard_max": 500,
+      "observed_min": 18.0,
+      "observed_max": 232.0,
+      "default": 100.0
+    },
+    {
+      "id": "hdl",
+      "column": "HDL",
+      "label": "HDL cholesterol",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mg/dL",
+      "required": false,
+      "hard_min": 5,
+      "hard_max": 200,
+      "observed_min": 15.9,
+      "observed_max": 111.0,
+      "default": 39.0
+    },
+    {
+      "id": "bun",
+      "column": "BUN",
+      "label": "Blood urea nitrogen",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mg/dL",
+      "required": false,
+      "hard_min": 2,
+      "hard_max": 200,
+      "observed_min": 6.0,
+      "observed_max": 52.0,
+      "default": 16.0
+    },
+    {
+      "id": "esr",
+      "column": "ESR",
+      "label": "Erythrocyte sedimentation rate",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mm/h",
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 150,
+      "observed_min": 1.0,
+      "observed_max": 90.0,
+      "default": 15.0
+    },
+    {
+      "id": "hb",
+      "column": "HB",
+      "label": "Haemoglobin",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "g/dL",
+      "required": false,
+      "hard_min": 3,
+      "hard_max": 25,
+      "observed_min": 8.9,
+      "observed_max": 17.6,
+      "default": 13.2
+    },
+    {
+      "id": "k",
+      "column": "K",
+      "label": "Potassium",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mEq/L",
+      "required": false,
+      "hard_min": 1.5,
+      "hard_max": 9,
+      "observed_min": 3.0,
+      "observed_max": 6.6,
+      "default": 4.2
+    },
+    {
+      "id": "na",
+      "column": "Na",
+      "label": "Sodium",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "mEq/L",
+      "required": false,
+      "hard_min": 100,
+      "hard_max": 180,
+      "observed_min": 128.0,
+      "observed_max": 156.0,
+      "default": 141.0
+    },
+    {
+      "id": "wbc",
+      "column": "WBC",
+      "label": "White blood cells",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "cells/mL",
+      "required": false,
+      "hard_min": 500,
+      "hard_max": 60000,
+      "observed_min": 3700.0,
+      "observed_max": 18000.0,
+      "default": 7100.0
+    },
+    {
+      "id": "lymph",
+      "column": "Lymph",
+      "label": "Lymphocytes",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "%",
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 100,
+      "observed_min": 7.0,
+      "observed_max": 60.0,
+      "default": 32.0
+    },
+    {
+      "id": "neut",
+      "column": "Neut",
+      "label": "Neutrophils",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "%",
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 100,
+      "observed_min": 32.0,
+      "observed_max": 89.0,
+      "default": 60.0
+    },
+    {
+      "id": "plt",
+      "column": "PLT",
+      "label": "Platelets",
+      "group": "Laboratory",
+      "kind": "numeric",
+      "unit": "x10^3/mL",
+      "required": false,
+      "hard_min": 10,
+      "hard_max": 1500,
+      "observed_min": 25.0,
+      "observed_max": 742.0,
+      "default": 210.0
+    },
+    {
+      "id": "ef_tte",
+      "column": "EF-TTE",
+      "label": "Ejection fraction (TTE)",
+      "group": "Echocardiography",
+      "kind": "numeric",
+      "unit": "%",
+      "required": false,
+      "hard_min": 5,
+      "hard_max": 80,
+      "observed_min": 15.0,
+      "observed_max": 60.0,
+      "default": 50.0
+    },
+    {
+      "id": "region_rwma",
+      "column": "Region RWMA",
+      "label": "Regions with wall-motion abnormality (0-4)",
+      "group": "Echocardiography",
+      "kind": "ordinal",
+      "unit": null,
+      "required": false,
+      "hard_min": 0,
+      "hard_max": 4,
+      "observed_min": 0.0,
+      "observed_max": 4.0,
+      "default": 0.0
+    },
+    {
+      "id": "vhd",
+      "column": "VHD",
+      "label": "Valvular heart disease",
+      "group": "Echocardiography",
+      "kind": "categorical",
+      "unit": null,
+      "required": false,
+      "options": [
+        "N",
+        "mild",
+        "Moderate",
+        "Severe"
+      ],
+      "default": "mild"
+    }
+  ],
+  "derived": [
+    {
+      "id": "bmi",
+      "label": "BMI",
+      "unit": "kg/m^2",
+      "formula": "Weight / (Height/100)^2"
+    }
+  ],
+  "forbidden_inputs": [
+    "Cath",
+    "EF- Cath",
+    "LAD",
+    "LAD Distal",
+    "LAD Mid",
+    "LAD Proximal",
+    "LCX",
+    "LCX Distal",
+    "LCX Mid",
+    "LCX Proximal",
+    "LM Distal",
+    "LM Proximal",
+    "Number Of lesion PCI",
+    "Number of Vessel Involved",
+    "RCA",
+    "RCA Distal",
+    "RCA Mid",
+    "RCA Proximal"
+  ]
+}

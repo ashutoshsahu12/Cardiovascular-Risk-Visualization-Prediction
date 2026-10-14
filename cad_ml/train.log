@@ -1,0 +1,78 @@
+Features: 54  | patients: 303  | leakage assertion passed
+Locked split: train=242  test=61
+
+=== DEV fit: CAD
+  [CAD] lr_l2          CV-AUC=0.9442  (1s)
+  [CAD] lr_l1          CV-AUC=0.9396  (1s)
+  [CAD] svm_rbf        CV-AUC=0.9365  (2s)
+  [CAD] rf             CV-AUC=0.9446  (51s)
+  [CAD] extra_trees    CV-AUC=0.9476  (35s)
+  [CAD] xgboost        CV-AUC=0.9470  (5s)
+  [CAD] catboost       CV-AUC=0.9517  (34s)
+
+=== DEV fit: LAD
+  [LAD] lr_l2          CV-AUC=0.8520  (1s)
+  [LAD] lr_l1          CV-AUC=0.8521  (1s)
+  [LAD] svm_rbf        CV-AUC=0.8417  (2s)
+  [LAD] rf             CV-AUC=0.8577  (54s)
+  [LAD] extra_trees    CV-AUC=0.8440  (33s)
+  [LAD] xgboost        CV-AUC=0.8598  (5s)
+  [LAD] catboost       CV-AUC=0.8616  (36s)
+
+=== DEV fit: LCX
+  [LCX] lr_l2          CV-AUC=0.7007  (1s)
+  [LCX] lr_l1          CV-AUC=0.7274  (1s)
+  [LCX] svm_rbf        CV-AUC=0.6732  (2s)
+  [LCX] rf             CV-AUC=0.7463  (53s)
+  [LCX] extra_trees    CV-AUC=0.7138  (33s)
+  [LCX] xgboost        CV-AUC=0.7393  (5s)
+  [LCX] catboost       CV-AUC=0.7459  (36s)
+
+=== DEV fit: RCA
+  [RCA] lr_l2          CV-AUC=0.7542  (1s)
+  [RCA] lr_l1          CV-AUC=0.7459  (1s)
+  [RCA] svm_rbf        CV-AUC=0.7324  (2s)
+  [RCA] rf             CV-AUC=0.7302  (53s)
+  [RCA] extra_trees    CV-AUC=0.7353  (33s)
+  [RCA] xgboost        CV-AUC=0.7251  (5s)
+  [RCA] catboost       CV-AUC=0.7257  (36s)
+
+Coherence (CAD>=max vessel) OOF: raw F1=0.949/AUC=0.958  coherent F1=0.949/AUC=0.958  -> adopt=True
+
+=== FINAL fit (all 303 patients): CAD
+  [CAD] lr_l2          CV-AUC=0.9341  (1s)
+  [CAD] lr_l1          CV-AUC=0.9331  (1s)
+  [CAD] svm_rbf        CV-AUC=0.9260  (3s)
+  [CAD] rf             CV-AUC=0.9282  (58s)
+  [CAD] extra_trees    CV-AUC=0.9306  (33s)
+  [CAD] xgboost        CV-AUC=0.9225  (6s)
+  [CAD] catboost       CV-AUC=0.9248  (38s)
+
+=== FINAL fit (all 303 patients): LAD
+  [LAD] lr_l2          CV-AUC=0.8450  (1s)
+  [LAD] lr_l1          CV-AUC=0.8382  (1s)
+  [LAD] svm_rbf        CV-AUC=0.8336  (3s)
+  [LAD] rf             CV-AUC=0.8546  (58s)
+  [LAD] extra_trees    CV-AUC=0.8435  (37s)
+  [LAD] xgboost        CV-AUC=0.8419  (6s)
+  [LAD] catboost       CV-AUC=0.8493  (43s)
+
+=== FINAL fit (all 303 patients): LCX
+  [LCX] lr_l2          CV-AUC=0.6899  (1s)
+  [LCX] lr_l1          CV-AUC=0.7082  (1s)
+  [LCX] svm_rbf        CV-AUC=0.6685  (3s)
+  [LCX] rf             CV-AUC=0.7282  (59s)
+  [LCX] extra_trees    CV-AUC=0.7046  (37s)
+  [LCX] xgboost        CV-AUC=0.7333  (7s)
+  [LCX] catboost       CV-AUC=0.7268  (40s)
+
+=== FINAL fit (all 303 patients): RCA
+  [RCA] lr_l2          CV-AUC=0.7291  (1s)
+  [RCA] lr_l1          CV-AUC=0.7499  (1s)
+  [RCA] svm_rbf        CV-AUC=0.6980  (3s)
+  [RCA] rf             CV-AUC=0.7331  (60s)
+  [RCA] extra_trees    CV-AUC=0.7433  (37s)
+  [RCA] xgboost        CV-AUC=0.7348  (6s)
+  [RCA] catboost       CV-AUC=0.7257  (40s)
+
+Done in 19.7 min. Artifacts -> /home/claude/cad_ml/artifacts

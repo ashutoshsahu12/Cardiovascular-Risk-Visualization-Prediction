@@ -1,0 +1,147 @@
+{
+  "1_static_column_check": {
+    "training_matrix_overlap": [],
+    "saved_model_CAD_overlap": [],
+    "saved_model_LAD_overlap": [],
+    "saved_model_LCX_overlap": [],
+    "saved_model_RCA_overlap": [],
+    "passed": true
+  },
+  "2_label_permutation": {
+    "CAD": {
+      "real_auc": 0.9347,
+      "permuted_mean_auc": 0.4882,
+      "permuted_95th_pct": 0.5441,
+      "empirical_p": 0.0323
+    },
+    "LAD": {
+      "real_auc": 0.825,
+      "permuted_mean_auc": 0.4964,
+      "permuted_95th_pct": 0.5812,
+      "empirical_p": 0.0323
+    },
+    "LCX": {
+      "real_auc": 0.6388,
+      "permuted_mean_auc": 0.514,
+      "permuted_95th_pct": 0.5783,
+      "empirical_p": 0.0323
+    },
+    "RCA": {
+      "real_auc": 0.7003,
+      "permuted_mean_auc": 0.5025,
+      "permuted_95th_pct": 0.5791,
+      "empirical_p": 0.0323
+    },
+    "passed": true
+  },
+  "3_single_feature_scan": {
+    "CAD": {
+      "top5": [
+        [
+          "Typical Chest Pain",
+          0.799
+        ],
+        [
+          "Age",
+          0.724
+        ],
+        [
+          "Atypical",
+          0.712
+        ],
+        [
+          "EF-TTE",
+          0.687
+        ],
+        [
+          "Region RWMA",
+          0.672
+        ]
+      ]
+    },
+    "LAD": {
+      "top5": [
+        [
+          "Typical Chest Pain",
+          0.732
+        ],
+        [
+          "EF-TTE",
+          0.708
+        ],
+        [
+          "Age",
+          0.677
+        ],
+        [
+          "Region RWMA",
+          0.675
+        ],
+        [
+          "Atypical",
+          0.665
+        ]
+      ]
+    },
+    "LCX": {
+      "top5": [
+        [
+          "Age",
+          0.681
+        ],
+        [
+          "Typical Chest Pain",
+          0.649
+        ],
+        [
+          "BP",
+          0.617
+        ],
+        [
+          "PLT",
+          0.601
+        ],
+        [
+          "FBS",
+          0.591
+        ]
+      ]
+    },
+    "RCA": {
+      "top5": [
+        [
+          "Typical Chest Pain",
+          0.65
+        ],
+        [
+          "Neut",
+          0.635
+        ],
+        [
+          "Age",
+          0.635
+        ],
+        [
+          "Lymph",
+          0.628
+        ],
+        [
+          "DM",
+          0.628
+        ]
+      ]
+    },
+    "max_single_feature_auc": 0.799,
+    "passed": true
+  },
+  "4_duplicates": {
+    "exact_duplicate_rows": 0,
+    "passed": true
+  },
+  "5_counter_example": {
+    "note": "AUC for overall CAD if LAD/LCX/RCA were (wrongly) allowed as inputs - demonstrates why they are excluded",
+    "cad_auc_with_vessel_labels": 0.9926,
+    "cad_auc_leak_free_same_model": 0.9192
+  },
+  "overall_passed": true
+}

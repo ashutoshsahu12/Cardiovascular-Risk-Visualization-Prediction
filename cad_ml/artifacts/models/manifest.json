@@ -1,0 +1,227 @@
+{
+  "version": "1.0.0",
+  "trained_at": "2026-10-14T08:52:37+00:00",
+  "feature_names": [
+    "Age",
+    "Weight",
+    "Length",
+    "Sex",
+    "BMI",
+    "DM",
+    "HTN",
+    "Current Smoker",
+    "EX-Smoker",
+    "FH",
+    "CRF",
+    "CVA",
+    "Airway disease",
+    "Thyroid Disease",
+    "CHF",
+    "DLP",
+    "BP",
+    "PR",
+    "Edema",
+    "Weak Peripheral Pulse",
+    "Lung rales",
+    "Systolic Murmur",
+    "Diastolic Murmur",
+    "Typical Chest Pain",
+    "Dyspnea",
+    "Function Class",
+    "Atypical",
+    "Nonanginal",
+    "LowTH Ang",
+    "Q Wave",
+    "St Elevation",
+    "St Depression",
+    "Tinversion",
+    "LVH",
+    "Poor R Progression",
+    "FBS",
+    "CR",
+    "TG",
+    "LDL",
+    "HDL",
+    "BUN",
+    "ESR",
+    "HB",
+    "K",
+    "Na",
+    "WBC",
+    "Lymph",
+    "Neut",
+    "PLT",
+    "EF-TTE",
+    "Region RWMA",
+    "VHD",
+    "LBBB",
+    "RBBB"
+  ],
+  "targets": [
+    "CAD",
+    "LAD",
+    "LCX",
+    "RCA"
+  ],
+  "risk_bins": [
+    0.33,
+    0.66
+  ],
+  "coherence": {
+    "enabled": true,
+    "cad_threshold": 0.38499999999999984,
+    "rule": "P(CAD) = max(P_CAD_model, P_LAD, P_LCX, P_RCA)  (CAD is defined as >=50% stenosis in any vessel)"
+  },
+  "thresholds": {
+    "CAD": {
+      "f1": 0.38499999999999984,
+      "youden": 0.7699999999999997,
+      "high_recall": 0.6349999999999998,
+      "default": 0.5
+    },
+    "LAD": {
+      "f1": 0.4199999999999998,
+      "youden": 0.6399999999999998,
+      "high_recall": 0.4349999999999998,
+      "default": 0.5
+    },
+    "LCX": {
+      "f1": 0.3049999999999999,
+      "youden": 0.3999999999999998,
+      "high_recall": 0.23999999999999988,
+      "default": 0.5
+    },
+    "RCA": {
+      "f1": 0.36999999999999983,
+      "youden": 0.37999999999999984,
+      "high_recall": 0.21999999999999992,
+      "default": 0.5
+    }
+  },
+  "selected_models": {
+    "CAD": [
+      "lr_l2",
+      "lr_l1",
+      "extra_trees",
+      "rf"
+    ],
+    "LAD": [
+      "rf",
+      "catboost",
+      "lr_l2",
+      "extra_trees"
+    ],
+    "LCX": [
+      "xgboost",
+      "rf",
+      "catboost",
+      "lr_l1"
+    ],
+    "RCA": [
+      "lr_l1",
+      "extra_trees",
+      "xgboost"
+    ]
+  },
+  "observed_ranges": {
+    "Age": [
+      30.0,
+      86.0
+    ],
+    "Weight": [
+      48.0,
+      120.0
+    ],
+    "Length": [
+      140.0,
+      188.0
+    ],
+    "BMI": [
+      18.115412710007302,
+      40.90065778377467
+    ],
+    "BP": [
+      90.0,
+      190.0
+    ],
+    "PR": [
+      50.0,
+      110.0
+    ],
+    "Function Class": [
+      0.0,
+      3.0
+    ],
+    "FBS": [
+      62.0,
+      400.0
+    ],
+    "CR": [
+      0.5,
+      2.2
+    ],
+    "TG": [
+      37.0,
+      1050.0
+    ],
+    "LDL": [
+      18.0,
+      232.0
+    ],
+    "HDL": [
+      15.9,
+      111.0
+    ],
+    "BUN": [
+      6.0,
+      52.0
+    ],
+    "ESR": [
+      1.0,
+      90.0
+    ],
+    "HB": [
+      8.9,
+      17.6
+    ],
+    "K": [
+      3.0,
+      6.6
+    ],
+    "Na": [
+      128.0,
+      156.0
+    ],
+    "WBC": [
+      3700.0,
+      18000.0
+    ],
+    "Lymph": [
+      7.0,
+      60.0
+    ],
+    "Neut": [
+      32.0,
+      89.0
+    ],
+    "PLT": [
+      25.0,
+      742.0
+    ],
+    "EF-TTE": [
+      15.0,
+      60.0
+    ],
+    "Region RWMA": [
+      0.0,
+      4.0
+    ]
+  },
+  "disclaimer": "Predictions are for clinical decision support and educational purposes only. They are NOT a substitute for formal diagnostic imaging (e.g. invasive/CT coronary angiography) or clinical judgement.",
+  "environment": {
+    "python": "3.12.3",
+    "scikit-learn": "1.8.0",
+    "numpy": "2.4.4",
+    "pandas": "3.0.2"
+  }
+}

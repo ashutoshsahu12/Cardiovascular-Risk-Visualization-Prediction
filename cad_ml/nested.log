@@ -1,0 +1,67 @@
+[rep 0 fold 0] CAD: AUC=0.963 acc=0.902  LAD: AUC=0.849 acc=0.803  LCX: AUC=0.785 acc=0.672  RCA: AUC=0.730 acc=0.656   (3.1 min)
+[rep 0 fold 1] CAD: AUC=0.897 acc=0.803  LAD: AUC=0.817 acc=0.721  LCX: AUC=0.789 acc=0.656  RCA: AUC=0.821 acc=0.721   (5.6 min)
+[rep 0 fold 2] CAD: AUC=0.943 acc=0.869  LAD: AUC=0.799 acc=0.754  LCX: AUC=0.778 acc=0.557  RCA: AUC=0.728 acc=0.623   (8.1 min)
+[rep 0 fold 3] CAD: AUC=0.953 acc=0.917  LAD: AUC=0.898 acc=0.783  LCX: AUC=0.682 acc=0.633  RCA: AUC=0.714 acc=0.617   (10.4 min)
+[rep 0 fold 4] CAD: AUC=0.904 acc=0.817  LAD: AUC=0.873 acc=0.833  LCX: AUC=0.641 acc=0.467  RCA: AUC=0.694 acc=0.567   (12.8 min)
+{
+ "CAD": {
+  "accuracy": 0.861,
+  "precision": 0.903,
+  "recall": 0.903,
+  "specificity": 0.759,
+  "f1": 0.903,
+  "roc_auc": 0.928,
+  "pr_auc": 0.97,
+  "brier": 0.095,
+  "balanced_accuracy": 0.831,
+  "mcc": 0.661
+ },
+ "LAD": {
+  "accuracy": 0.779,
+  "precision": 0.775,
+  "recall": 0.876,
+  "specificity": 0.643,
+  "f1": 0.822,
+  "roc_auc": 0.848,
+  "pr_auc": 0.878,
+  "brier": 0.152,
+  "balanced_accuracy": 0.759,
+  "mcc": 0.54
+ },
+ "LCX": {
+  "accuracy": 0.597,
+  "precision": 0.492,
+  "recall": 0.739,
+  "specificity": 0.505,
+  "f1": 0.591,
+  "roc_auc": 0.732,
+  "pr_auc": 0.605,
+  "brier": 0.203,
+  "balanced_accuracy": 0.622,
+  "mcc": 0.243
+ },
+ "RCA": {
+  "accuracy": 0.637,
+  "precision": 0.512,
+  "recall": 0.737,
+  "specificity": 0.577,
+  "f1": 0.604,
+  "roc_auc": 0.729,
+  "pr_auc": 0.591,
+  "brier": 0.204,
+  "balanced_accuracy": 0.657,
+  "mcc": 0.305
+ },
+ "CAD_coherent": {
+  "accuracy": 0.858,
+  "precision": 0.902,
+  "recall": 0.898,
+  "specificity": 0.759,
+  "f1": 0.9,
+  "roc_auc": 0.929,
+  "pr_auc": 0.97,
+  "brier": 0.095,
+  "balanced_accuracy": 0.828,
+  "mcc": 0.655
+ }
+}
